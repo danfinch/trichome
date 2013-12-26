@@ -1,0 +1,15 @@
+
+### BUILD
+[Bb]in/
+[Oo]bj/
+*.pdb
+
+### VISUAL STUDIO JUNK
+*.suo
+*.user
+*.sln.docstates
+
+### OS JUNK
+Thumbs.db
+Desktop.ini
+.DS_Store
