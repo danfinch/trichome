@@ -14,7 +14,7 @@ namespace Trichome {
         ParameterInfo[] parameters;
         Func<object[], object> create;
 
-        public Creator(Registration registration, Container container) {
+        internal Creator(Registration registration, Container container) {
             this.registration = registration;
             this.container = container;
         }

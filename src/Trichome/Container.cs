@@ -7,9 +7,14 @@ using System.Threading.Tasks;
 
 namespace Trichome {
     public class Container {
-        Dictionary<Type, Registration> registrations = new Dictionary<Type, Registration>();
+        ConcurrentDictionary<Type, Registration> registrations = new ConcurrentDictionary<Type, Registration>();
         Dictionary<Type, IScope> scopes = new Dictionary<Type, IScope>();
         object[] empty = new object[] { };
+        IScope defaultScope;
+
+        public Container() {
+            defaultScope = GetScope(typeof(TransientScope));
+        }
 
         internal IScope GetScope(Type type) {
             if (scopes.ContainsKey(type)) {
@@ -20,18 +25,39 @@ namespace Trichome {
             return scope;
         }
 
+        Registration CreateRegistration(Type type) {
+            var registration = new Registration {
+                BaseType = type,
+                InstanceType = type,
+                Scope = defaultScope,
+            };
+            registration.Creator = new Creator(registration, this);
+            return registration;
+        }
+
         public object Inject(Type type) {
-            throw new NotImplementedException();
+            var registration = registrations.GetOrAdd(type, CreateRegistration);
+            return registration.Scope.Inject(type, registration.Creator);
+        }
+
+        public Registrar Bind(Type type) {
+            var registration = CreateRegistration(type);
+            registrations.TryAdd(type, registration);
+            return new Registrar(this, registration);
         }
 
         public Registrar Bind<T>() {
-            var registration = new Registration {
-                BaseType = typeof(T),
-                InstanceType = typeof(T),
-            };
-            registration.Creator = new Creator(registration, this);
-            registrations.Add(typeof(T), registration);
-            return new Registrar(this, registration);
+            return Bind(typeof(T));
         }
+
+        public Container SetDefaultScope(Type type) {
+            defaultScope = GetScope(type);
+            return this;
+        }
+
+        public Container SetDefaultScope<T>() where T : IScope, new() {
+            return SetDefaultScope(typeof(T));
+        }
+
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Trichome {
-    public class Singleton : IScope {
+    public class TransientScope : IScope {
         public object Inject(Type type, Creator constructor) {
             throw new NotImplementedException();
         }

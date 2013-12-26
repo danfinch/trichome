@@ -34,7 +34,7 @@ namespace Trichome {
             return this;
         }
 
-        public Registrar In<T>() where T : IScope {
+        public Registrar In<T>() where T : IScope, new() {
             registration.Scope = container.GetScope(typeof(T));
             return this;
         }

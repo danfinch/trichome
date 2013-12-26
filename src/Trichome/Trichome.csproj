@@ -45,8 +45,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registrar.cs" />
     <Compile Include="Registration.cs" />
-    <Compile Include="Singleton.cs" />
-    <Compile Include="Transient.cs" />
+    <Compile Include="SingletonScope.cs" />
+    <Compile Include="TransientScope.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
