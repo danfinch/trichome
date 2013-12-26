@@ -23,6 +23,12 @@ namespace Trichome {
             return this;
         }
 
+        public Registrar To(object instance) {
+            registration.Instance = instance;
+            registration.IsInstanceRegistered = true;
+            return this;
+        }
+
         public Registrar In(Type type) {
             registration.Scope = container.GetScope(type);
             return this;

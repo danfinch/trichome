@@ -6,5 +6,8 @@ using System.Threading.Tasks;
 
 namespace Trichome {
     public class Singleton : IScope {
+        public object Inject(Type type, Creator constructor) {
+            throw new NotImplementedException();
+        }
     }
 }

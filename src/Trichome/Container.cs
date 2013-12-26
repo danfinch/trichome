@@ -9,7 +9,6 @@ namespace Trichome {
     public class Container {
         Dictionary<Type, Registration> registrations = new Dictionary<Type, Registration>();
         Dictionary<Type, IScope> scopes = new Dictionary<Type, IScope>();
-        ObjectConstructor constructor = new ObjectConstructor();
         object[] empty = new object[] { };
 
         internal IScope GetScope(Type type) {
@@ -26,7 +25,12 @@ namespace Trichome {
         }
 
         public Registrar Bind<T>() {
-            var registration = new Registration { BaseType = typeof(T) };
+            var registration = new Registration {
+                BaseType = typeof(T),
+                InstanceType = typeof(T),
+            };
+            registration.Creator = new Creator(registration, this);
+            registrations.Add(typeof(T), registration);
             return new Registrar(this, registration);
         }
     }

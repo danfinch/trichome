@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace Trichome {
     public interface IScope {
-        object Inject(ObjectConstructor constructor);
+        object Inject(Type type, Creator creator);
     }
 }
