@@ -9,5 +9,7 @@ namespace Trichome.Web {
         public object Inject(Type type, Creator constructor) {
             throw new NotImplementedException();
         }
+
+        public void Dispose() { }
     }
 }

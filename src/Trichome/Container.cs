@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Trichome {
-    public class Container {
+    public class Container : IDisposable {
         ConcurrentDictionary<Type, Registration> registrations = new ConcurrentDictionary<Type, Registration>();
         Dictionary<Type, IScope> scopes = new Dictionary<Type, IScope>();
         object[] empty = new object[] { };
@@ -59,5 +59,8 @@ namespace Trichome {
             return SetDefaultScope(typeof(T));
         }
 
+        public void Dispose() {
+            throw new NotImplementedException();
+        }
     }
 }

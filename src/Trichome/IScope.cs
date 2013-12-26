@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Trichome {
-    public interface IScope {
+    public interface IScope : IDisposable {
         object Inject(Type type, Creator creator);
     }
 }

@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Trichome {
     public class TransientScope : IScope {
-        public object Inject(Type type, Creator constructor) {
-            throw new NotImplementedException();
+        public object Inject(Type type, Creator creator) {
+            return creator.Create();
         }
+
+        public void Dispose() { }
     }
 }

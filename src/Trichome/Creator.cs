@@ -19,7 +19,7 @@ namespace Trichome {
             this.container = container;
         }
 
-        public object Construct() {
+        public object Create() {
             if (registration.IsInstanceRegistered) {
                 return registration.Instance;
             }

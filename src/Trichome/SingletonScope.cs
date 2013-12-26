@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +7,19 @@ using System.Threading.Tasks;
 
 namespace Trichome {
     public class SingletonScope : IScope {
-        public object Inject(Type type, Creator constructor) {
-            throw new NotImplementedException();
+        ConcurrentDictionary<Type, object> instances = new ConcurrentDictionary<Type, object>();
+
+        public object Inject(Type type, Creator creator) {
+            return instances.GetOrAdd(type, (t) => creator.Create());
+        }
+
+        public void Dispose() {
+            foreach (var instance in instances.Values) {
+                if (instance is IDisposable) {
+                    (instance as IDisposable).Dispose();
+                }
+            }
+            instances.Clear();
         }
     }
 }

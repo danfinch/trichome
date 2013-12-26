@@ -23,7 +23,7 @@ namespace Trichome {
             return this;
         }
 
-        public Registrar To(object instance) {
+        public Registrar As(object instance) {
             registration.Instance = instance;
             registration.IsInstanceRegistered = true;
             return this;
