@@ -35,7 +35,7 @@ namespace Trichome {
             return registration;
         }
 
-        public object Inject(Type type) {
+        public object Get(Type type) {
             var registration = registrations.GetOrAdd(type, CreateRegistration);
             return registration.Scope.Inject(type, registration.Creator);
         }
@@ -60,7 +60,9 @@ namespace Trichome {
         }
 
         public void Dispose() {
-            throw new NotImplementedException();
+            foreach (var scope in scopes.Values) {
+                scope.Dispose();
+            }
         }
     }
 }

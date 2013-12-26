@@ -30,7 +30,7 @@ namespace Trichome {
             }
             var arguments = new object[parameters.Length];
             for (var p = 0; p < parameters.Length; p++) {
-                arguments[p] = container.Inject(parameters[p].ParameterType);
+                arguments[p] = container.Get(parameters[p].ParameterType);
             }
             return create(arguments);
         }
