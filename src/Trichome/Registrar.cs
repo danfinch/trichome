@@ -52,5 +52,11 @@ namespace Trichome {
             registration.Scope = container.GetScope(typeof(T));
             return this;
         }
+
+        public Container And {
+            get {
+                return container;
+            }
+        }
     }
 }

@@ -97,6 +97,12 @@ namespace Trichome {
             return SetDefaultScope(typeof(T));
         }
 
+        public Container Situation<T>() where T : ISituation, new() {
+            var situation = new T();
+            situation.Load(this);
+            return this;
+        }
+
         public void Dispose() {
             foreach (var scope in scopes.Values) {
                 scope.Dispose();
