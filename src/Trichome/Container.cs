@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Trichome {
+    /// <summary>
+    /// Fast IoC container. Thread-safe. Only supports constructor injection. Favors constructors with most parameters.
+    /// </summary>
     public class Container : IDisposable {
         ConcurrentDictionary<Type, Registration> registrations = new ConcurrentDictionary<Type, Registration>();
         Dictionary<Type, IScope> scopes = new Dictionary<Type, IScope>();
@@ -30,31 +33,67 @@ namespace Trichome {
                 BaseType = type,
                 InstanceType = type,
                 Scope = defaultScope,
+                Resolution = Resolution.Created,
             };
             registration.Creator = new Creator(registration, this);
             return registration;
         }
 
-        public object Get(Type type) {
-            var registration = registrations.GetOrAdd(type, CreateRegistration);
-            return registration.Scope.Inject(type, registration.Creator);
+        Registration CreateSubtypeRegistration(Type type, Registration parentRegistration)
+        {
+            var registration = new Registration {
+                BaseType = type,
+                InstanceType = parentRegistration.InstanceType,
+                Scope = defaultScope,
+                Resolution = Resolution.Created,
+            };
+            registration.Creator = new Creator(registration, parentRegistration);
+            return registration;
         }
 
+        /// <summary>
+        /// Resolves an object instance for a given type.
+        /// </summary>
+        public object Resolve(Type type) {
+            var registration = registrations.GetOrAdd(type, t => {
+                var parent = registrations
+                    .Where(p => p.Key.IsAssignableFrom(type))
+                    .Select(p => p.Value)
+                    .FirstOrDefault();
+                return CreateSubtypeRegistration(type, parent);
+            });
+            return registration.Scope.Resolve(type, registration.Creator);
+        }
+
+        /// <summary>
+        /// Create a binding for a specified base type.
+        /// </summary>
+        /// <returns>Registrar, a fluent interface for configuring the binding.</returns>
         public Registrar Bind(Type type) {
             var registration = CreateRegistration(type);
             registrations.TryAdd(type, registration);
             return new Registrar(this, registration);
         }
 
+        /// <summary>
+        /// Create a binding for a specified base type.
+        /// </summary>
+        /// <returns>Registrar, a fluent interface for configuring the binding.</returns>
         public Registrar Bind<T>() {
             return Bind(typeof(T));
         }
 
+        /// <summary>
+        /// Sets the default scope new bindings will receive.
+        /// </summary>
         public Container SetDefaultScope(Type type) {
             defaultScope = GetScope(type);
             return this;
         }
 
+        /// <summary>
+        /// Sets the default scope new bindings will receive.
+        /// </summary>
         public Container SetDefaultScope<T>() where T : IScope, new() {
             return SetDefaultScope(typeof(T));
         }

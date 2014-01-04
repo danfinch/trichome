@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Trichome.Web")]
-[assembly: AssemblyCopyright("Copyright © 2013 Dan Finch & Jesse Black")]
+[assembly: AssemblyCopyright("Public Domain")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]

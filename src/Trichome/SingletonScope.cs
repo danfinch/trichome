@@ -9,7 +9,7 @@ namespace Trichome {
     public class SingletonScope : IScope {
         ConcurrentDictionary<Type, object> instances = new ConcurrentDictionary<Type, object>();
 
-        public object Inject(Type type, Creator creator) {
+        public object Resolve(Type type, Creator creator) {
             return instances.GetOrAdd(type, (t) => creator.Create());
         }
 

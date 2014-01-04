@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Trichome {
     public class TransientScope : IScope {
-        public object Inject(Type type, Creator creator) {
+        public object Resolve(Type type, Creator creator) {
             return creator.Create();
         }
 

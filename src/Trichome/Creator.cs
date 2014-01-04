@@ -19,9 +19,20 @@ namespace Trichome {
             this.container = container;
         }
 
+        internal Creator(Registration registration, Registration parentRegistration) {
+            this.registration = registration;
+            this.container = parentRegistration.Creator.container;
+            this.ctor = parentRegistration.Creator.ctor;
+            this.parameters = parentRegistration.Creator.parameters;
+            this.create = parentRegistration.Creator.create;
+        }
+
         public object Create() {
-            if (registration.IsInstanceRegistered) {
-                return registration.Instance;
+            if (registration.Resolution == Resolution.Cached) {
+                return registration.CachedInstance;
+            }
+            if (registration.Resolution == Resolution.Factory) {
+                return registration.Factory();
             }
             if (ctor == null) {
                 ctor = GetConstructor(registration.InstanceType);
@@ -30,7 +41,7 @@ namespace Trichome {
             }
             var arguments = new object[parameters.Length];
             for (var p = 0; p < parameters.Length; p++) {
-                arguments[p] = container.Get(parameters[p].ParameterType);
+                arguments[p] = container.Resolve(parameters[p].ParameterType);
             }
             return create(arguments);
         }

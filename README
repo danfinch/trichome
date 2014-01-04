@@ -3,6 +3,8 @@ Trichome
 
 Good fast DI for .NET.
 
+License: Public Domain
+
 Features
 	Constructor injection
 

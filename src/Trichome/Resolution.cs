@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Trichome {
-    public interface IScope : IDisposable {
-        object Resolve(Type type, Creator creator);
+    public enum Resolution {
+        Created,
+        Cached,
+        Factory,
     }
 }

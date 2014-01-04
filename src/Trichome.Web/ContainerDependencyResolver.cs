@@ -13,11 +13,11 @@ namespace Trichome.Web {
         }
 
         public object GetService(Type serviceType) {
-            return container.Get(serviceType);
+            return container.Resolve(serviceType);
         }
 
         public IEnumerable<object> GetServices(Type serviceType) {
-            return new[] { container.Get(serviceType) };
+            return new[] { container.Resolve(serviceType) };
         }
     }
 }

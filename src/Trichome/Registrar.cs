@@ -14,18 +14,26 @@ namespace Trichome {
         }
 
         public Registrar To(Type type) {
+            registration.Resolution = Resolution.Created;
             registration.InstanceType = type;
             return this;
         }
 
         public Registrar To<T>() {
+            registration.Resolution = Resolution.Created;
             registration.InstanceType = typeof(T);
             return this;
         }
 
+        public Registrar To<T>(Func<T> factory) {
+            registration.Resolution = Resolution.Factory;
+            registration.Factory = () => (object)factory();
+            return this;
+        }
+
         public Registrar As(object instance) {
-            registration.Instance = instance;
-            registration.IsInstanceRegistered = true;
+            registration.Resolution = Resolution.Cached;
+            registration.CachedInstance = instance;
             return this;
         }
 

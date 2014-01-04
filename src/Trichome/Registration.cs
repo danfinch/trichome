@@ -9,8 +9,9 @@ namespace Trichome {
         public Type BaseType;
         public Type InstanceType;
         public IScope Scope;
+        public Resolution Resolution;
         public Creator Creator;
-        public object Instance;
-        public bool IsInstanceRegistered;
+        public object CachedInstance;
+        public Func<object> Factory;
     }
 }

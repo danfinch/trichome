@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Trichome.Web {
     public class RequestScope : IScope {
-        public object Inject(Type type, Creator constructor) {
+        public object Resolve(Type type, Creator constructor) {
             throw new NotImplementedException();
         }
 
