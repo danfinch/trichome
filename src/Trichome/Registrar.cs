@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Trichome {
+    /// <summary>
+    /// Fluent registration for a binding.
+    /// </summary>
     public class Registrar {
         Container container;
         Registration registration;

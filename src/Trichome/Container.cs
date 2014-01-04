@@ -65,12 +65,19 @@ namespace Trichome {
         }
 
         /// <summary>
+        /// Resolves an object instance for a given type.
+        /// </summary>
+        public T Resolve<T>() {
+            return (T)Resolve(typeof(T));
+        }
+
+        /// <summary>
         /// Create a binding for a specified base type.
         /// </summary>
         /// <returns>Registrar, a fluent interface for configuring the binding.</returns>
         public Registrar Bind(Type type) {
-            var registration = CreateRegistration(type);
-            registrations.TryAdd(type, registration);
+            var registration = registrations.AddOrUpdate(type, CreateRegistration,
+                (t, r) => CreateRegistration(t));
             return new Registrar(this, registration);
         }
 
@@ -97,7 +104,11 @@ namespace Trichome {
             return SetDefaultScope(typeof(T));
         }
 
-        public Container Situation<T>() where T : ISituation, new() {
+        /// <summary>
+        /// Runs the given situation in the container.
+        /// </summary>
+        /// <typeparam name="T">Type that implements ISituation.</typeparam>
+        public Container Enter<T>() where T : ISituation, new() {
             var situation = new T();
             situation.Load(this);
             return this;
