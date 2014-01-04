@@ -39,8 +39,7 @@ namespace Trichome {
             return registration;
         }
 
-        Registration CreateSubtypeRegistration(Type type, Registration parentRegistration)
-        {
+        Registration CreateSubtypeRegistration(Type type, Registration parentRegistration) {
             var registration = new Registration {
                 BaseType = type,
                 InstanceType = parentRegistration.InstanceType,

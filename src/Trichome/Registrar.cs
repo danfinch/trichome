@@ -25,6 +25,12 @@ namespace Trichome {
             return this;
         }
 
+        public Registrar To(Type type, Func<object> factory) {
+            registration.Resolution = Resolution.Factory;
+            registration.Factory = factory;
+            return this;
+        }
+
         public Registrar To<T>(Func<T> factory) {
             registration.Resolution = Resolution.Factory;
             registration.Factory = () => (object)factory();
