@@ -19,14 +19,6 @@ namespace Trichome {
             this.container = container;
         }
 
-        internal Creator(Registration registration, Registration parentRegistration) {
-            this.registration = registration;
-            this.container = parentRegistration.Creator.container;
-            this.ctor = parentRegistration.Creator.ctor;
-            this.parameters = parentRegistration.Creator.parameters;
-            this.create = parentRegistration.Creator.create;
-        }
-
         public object Create() {
             if (registration.Resolution == Resolution.Cached) {
                 return registration.CachedInstance;

@@ -17,13 +17,13 @@ namespace Trichome {
         }
 
         public Registrar To(Type type) {
-            registration.Resolution = Resolution.Created;
+            registration.Resolution = Resolution.Creator;
             registration.InstanceType = type;
             return this;
         }
 
         public Registrar To<T>() {
-            registration.Resolution = Resolution.Created;
+            registration.Resolution = Resolution.Creator;
             registration.InstanceType = typeof(T);
             return this;
         }

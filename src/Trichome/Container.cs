@@ -33,20 +33,9 @@ namespace Trichome {
                 BaseType = type,
                 InstanceType = type,
                 Scope = defaultScope,
-                Resolution = Resolution.Created,
+                Resolution = Resolution.Creator,
             };
             registration.Creator = new Creator(registration, this);
-            return registration;
-        }
-
-        Registration CreateSubtypeRegistration(Type type, Registration parentRegistration) {
-            var registration = new Registration {
-                BaseType = type,
-                InstanceType = parentRegistration.InstanceType,
-                Scope = defaultScope,
-                Resolution = Resolution.Created,
-            };
-            registration.Creator = new Creator(registration, parentRegistration);
             return registration;
         }
 
@@ -54,13 +43,7 @@ namespace Trichome {
         /// Resolves an object instance for a given type.
         /// </summary>
         public object Resolve(Type type) {
-            var registration = registrations.GetOrAdd(type, t => {
-                var parent = registrations
-                    .Where(p => p.Key.IsAssignableFrom(type))
-                    .Select(p => p.Value)
-                    .FirstOrDefault();
-                return CreateSubtypeRegistration(type, parent);
-            });
+            var registration = registrations.GetOrAdd(type, CreateRegistration);
             return registration.Scope.Resolve(type, registration.Creator);
         }
 

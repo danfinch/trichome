@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Trichome {
     public enum Resolution {
-        Created,
+        Creator,
         Cached,
         Factory,
     }
