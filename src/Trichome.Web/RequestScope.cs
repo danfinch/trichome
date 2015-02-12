@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using System.Web;
 
 namespace Trichome.Web {
+    /// <summary>
+    /// In this scope, a new instance will be resolved for each ASP.NET request.
+    /// </summary>
     public class RequestScope : IScope {
         private const string HTTP_CONTEXT_KEY = "Trichome.Web.RequestScope";
 

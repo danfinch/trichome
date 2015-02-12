@@ -7,6 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Trichome {
+	/// <summary>
+	/// Responsible for creating constructor delegates. For internal use.
+	/// </summary>
     public class Creator {
         Registration registration;
         Container container;

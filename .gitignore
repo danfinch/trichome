@@ -9,6 +9,9 @@
 *.user
 *.sln.docstates
 
+### MONODEVELOP JUNK
+*.userprefs
+
 ### OS JUNK
 Thumbs.db
 Desktop.ini

@@ -10,7 +10,8 @@ namespace Trichome {
     /// Fast IoC container. Thread-safe. Only supports constructor injection. Favors constructors with most parameters.
     /// </summary>
     public class Container : IDisposable {
-        ConcurrentDictionary<Type, Registration> registrations = new ConcurrentDictionary<Type, Registration>();
+        ConcurrentDictionary<Type, Registration> registrations
+            = new ConcurrentDictionary<Type, Registration>();
         Dictionary<Type, IScope> scopes = new Dictionary<Type, IScope>();
         object[] empty = new object[] { };
         IScope defaultScope;

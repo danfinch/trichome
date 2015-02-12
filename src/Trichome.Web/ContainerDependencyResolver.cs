@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Trichome.Web {
+    /// <summary>
+    /// Integrates Trichome with ASP.NET MVC.
+    /// </summary>
     public class ContainerDependencyResolver : IDependencyResolver {
         Container container;
         public ContainerDependencyResolver(Container container) {

@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Trichome\Trichome.csproj">
-      <Project>{bb14525a-edf9-48ca-8a7a-a1289fa05166}</Project>
+      <Project>{BB14525A-EDF9-48CA-8A7A-A1289FA05166}</Project>
       <Name>Trichome</Name>
     </ProjectReference>
   </ItemGroup>
