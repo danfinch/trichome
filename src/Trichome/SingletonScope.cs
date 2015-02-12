@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Trichome {
-	/// <summary>
-	/// In this scope, only one instance of a requested service will ever be resolved.
-	/// </summary>
+    /// <summary>
+    /// In this scope, only one instance of a requested service will ever be resolved.
+    /// </summary>
     public class SingletonScope : IScope {
         ConcurrentDictionary<Type, object> instances = new ConcurrentDictionary<Type, object>();
 
